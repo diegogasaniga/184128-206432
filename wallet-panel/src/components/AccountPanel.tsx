@@ -13,7 +13,7 @@ function formatToFourDecimals(value: string): string {
     return '0.0000';
   }
 
-  return numericValue.toFixed(4);
+  return (Math.floor(numericValue * 100000) / 100000).toFixed(5);
 }
 
 export default function AccountPanel() {
