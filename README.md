@@ -1,55 +1,22 @@
-# Wallet Panel
-
 ## Taller de Tecnologías 2
 
 Proyecto realizado por:
+
 - Diego Gasaniga - 181428
 - Juan Pablo Barrios - 206432
 
 ---
 
-## 🚀 Cómo correr el proyecto
+## 📚 Entregas
 
-1. **Clonar o descargar el repositorio**
+### 📦 Entrega 1
+En esta primera entrega se desarrolló una aplicación capaz de conectarse a una billetera Ethereum y mostrar información en tiempo real de la cuenta conectada. La aplicación permite visualizar el saldo disponible, el bloque actual de la blockchain y los balances de distintos tokens ERC-20 en la red Sepolia. Además, el usuario puede conectar y desconectar su billetera desde la interfaz. :contentReference[oaicite:0]{index=0}
 
-2. **Ir a la carpeta del proyecto**
-```bash
-cd wallet-panel
-```
-
-3. **Instalar dependencias**
-```bash
-npm install
-```
-
-4. **Levantar el proyecto**
-```bash
-npm run dev
-```
-
-5. **Abrir en el navegador**
-http://localhost:5173
+🔗 [Ir a Entrega 1](./Entrega_1)
 
 ---
 
-## 🧩 Requisitos
+### 🚀 Entrega 2
+En esta segunda entrega se desarrolló un sistema de billetera multisig que permite administrar transacciones mediante múltiples aprobaciones. Los usuarios autorizados pueden crear propuestas de transferencia, aprobarlas y ejecutarlas una vez alcanzada la cantidad mínima de aprobaciones requerida. La aplicación también permite visualizar todas las propuestas, su estado actual y la información general del contrato desplegado en blockchain. :contentReference[oaicite:1]{index=1}
 
-- Node.js instalado (recomendado >= 18)
-- Tener MetaMask instalado en el navegador
-
----
-
-## ⚠️ Notas
-
-- Es necesario conectarse con MetaMask para ver la información de la wallet
-- El proyecto utiliza la red Sepolia
-
----
-
-## 📄 Tokens utilizados en Sepolia
-
-- **USDC (Sepolia)**  
-  `0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`
-
-- **Chainlink (LINK - Sepolia)**  
-  `0x779877A7B0D9E8603169DdbD7836e478b4624789`
+🔗 [Ir a Entrega 2](./Entrega_2)
