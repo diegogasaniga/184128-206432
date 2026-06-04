@@ -1,0 +1,128 @@
+export const MULTISIG_ABI = [
+  // ── Events ──────────────────────────────────────────────────────────────────
+  {
+    type: 'event',
+    name: 'ProposalCreated',
+    inputs: [
+      { name: 'proposalId', type: 'uint256', indexed: true },
+      { name: 'proposer', type: 'address', indexed: true },
+      { name: 'to', type: 'address', indexed: false },
+      { name: 'value', type: 'uint256', indexed: false },
+    ],
+  },
+  {
+    type: 'event',
+    name: 'Approved',
+    inputs: [
+      { name: 'proposalId', type: 'uint256', indexed: true },
+      { name: 'signer', type: 'address', indexed: true },
+    ],
+  },
+  {
+    type: 'event',
+    name: 'Executed',
+    inputs: [
+      { name: 'proposalId', type: 'uint256', indexed: true },
+      { name: 'executor', type: 'address', indexed: true },
+    ],
+  },
+  {
+    type: 'event',
+    name: 'Cancelled',
+    inputs: [
+      { name: 'proposalId', type: 'uint256', indexed: true },
+      { name: 'proposer', type: 'address', indexed: true },
+    ],
+  },
+  // ── Read ────────────────────────────────────────────────────────────────────
+  {
+    type: 'function',
+    name: 'threshold',
+    inputs: [],
+    outputs: [{ name: '', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    name: 'isSigner',
+    inputs: [{ name: '', type: 'address' }],
+    outputs: [{ name: '', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    name: 'hasApproved',
+    inputs: [
+      { name: '', type: 'uint256' },
+      { name: '', type: 'address' },
+    ],
+    outputs: [{ name: '', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    name: 'getSigners',
+    inputs: [],
+    outputs: [{ name: '', type: 'address[]' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    name: 'getProposalCount',
+    inputs: [],
+    outputs: [{ name: '', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    name: 'getProposal',
+    inputs: [{ name: 'proposalId', type: 'uint256' }],
+    outputs: [
+      { name: 'proposer', type: 'address' },
+      { name: 'to', type: 'address' },
+      { name: 'value', type: 'uint256' },
+      { name: 'data', type: 'bytes' },
+      { name: 'approvalCount', type: 'uint256' },
+      { name: 'executed', type: 'bool' },
+      { name: 'cancelled', type: 'bool' },
+    ],
+    stateMutability: 'view',
+  },
+  // ── Write ───────────────────────────────────────────────────────────────────
+  {
+    type: 'function',
+    name: 'propose',
+    inputs: [
+      { name: 'to', type: 'address' },
+      { name: 'value', type: 'uint256' },
+      { name: 'data', type: 'bytes' },
+    ],
+    outputs: [{ name: '', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    name: 'approve',
+    inputs: [{ name: 'proposalId', type: 'uint256' }],
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    name: 'execute',
+    inputs: [{ name: 'proposalId', type: 'uint256' }],
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    name: 'cancel',
+    inputs: [{ name: 'proposalId', type: 'uint256' }],
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'receive',
+    stateMutability: 'payable',
+  },
+] as const;
