@@ -7,9 +7,9 @@ async function main() {
   // ── Configure before deploying ──────────────────────────────────────────────
   // Replace these addresses with the actual signer wallets.
   const signerAddresses: string[] = [
-    deployer.address,                                    // signer 1 (deployer)
-    '0x0000000000000000000000000000000000000001', // signer 2 — REPLACE
-    '0x0000000000000000000000000000000000000002', // signer 3 — REPLACE
+    '0x447b46E7a4C959fE30eBCdF01eA2B83eDFC2FC8a', // signer 1
+    '0x1066594e4483AE78eb21ECE5F475f8f9b5c8224d', // signer 2
+    '0x5478eEE9fbe0c2a994395A1848c62583F376fa2F', // signer 3
   ];
   const threshold = 2; // requires 2-of-3 approvals
   // ───────────────────────────────────────────────────────────────────────────

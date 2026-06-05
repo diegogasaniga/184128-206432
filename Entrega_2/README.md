@@ -117,7 +117,7 @@ cp .env.example .env
 Completá el `.env`:
 
 ```
-VITE_WALLETCONNECT_PROJECT_ID=tu_project_id_de_walletconnect
+VITE_WALLETCONNECT_PROJECT_ID=t60bc9b4671ad1a5e2c2c42b7241b62a0
 VITE_CONTRACT_ADDRESS=0xDireccionDelContratoEnSepolia
 VITE_APP_NAME=Multisig
 ```
@@ -138,7 +138,7 @@ La app estará disponible en `http://localhost:5173`.
 
 | Campo | Valor |
 |-------|-------|
-| Dirección del contrato | `0x` *(completar tras el despliegue)* |
+| Dirección del contrato | `0x1A77f0a186bEa508A981dAA28a23C54B8892356A` |
 | Red | Sepolia Testnet (chainId 11155111) |
 | Threshold | 2 de 3 |
 
@@ -146,9 +146,9 @@ La app estará disponible en `http://localhost:5173`.
 
 | # | Dirección |
 |---|-----------|
-| 1 | `0x` *(completar)* |
-| 2 | `0x` *(completar)* |
-| 3 | `0x` *(completar)* |
+| 1 | `0x447b46E7a4C959fE30eBCdF01eA2B83eDFC2FC8a` |
+| 2 | `0x1066594e4483AE78eb21ECE5F475f8f9b5c8224d` |
+| 3 | `0x5478eEE9fbe0c2a994395A1848c62583F376fa2F` |
 
 ---
 

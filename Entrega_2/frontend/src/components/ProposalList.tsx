@@ -8,11 +8,13 @@ type Props = { isSigner: boolean };
 type RawProposal = readonly [`0x${string}`, `0x${string}`, bigint, `0x${string}`, bigint, boolean, boolean];
 
 export default function ProposalList({ isSigner }: Props) {
+  const enabled = !!CONTRACT_ADDRESS;
+
   const { data: thresholdRaw } = useReadContract({
     address: CONTRACT_ADDRESS,
     abi: MULTISIG_ABI,
     functionName: 'threshold',
-    query: { refetchInterval: 5000 },
+    query: { enabled, refetchInterval: 5000 },
   });
   const threshold = thresholdRaw as bigint | undefined;
 
@@ -20,7 +22,7 @@ export default function ProposalList({ isSigner }: Props) {
     address: CONTRACT_ADDRESS,
     abi: MULTISIG_ABI,
     functionName: 'getProposalCount',
-    query: { refetchInterval: 5000 },
+    query: { enabled, refetchInterval: 5000 },
   });
 
   const count = Number(proposalCount ?? 0n);

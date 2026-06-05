@@ -15,7 +15,7 @@ export default function App() {
     abi: MULTISIG_ABI,
     functionName: 'isSigner',
     args: [address ?? ZERO_ADDRESS],
-    query: { enabled: !!address },
+    query: { enabled: !!address && !!CONTRACT_ADDRESS },
   });
 
   if (!isConnected) {
@@ -37,7 +37,13 @@ export default function App() {
         <ConnectButton />
       </header>
 
-      {!isSigner && (
+      {!CONTRACT_ADDRESS && (
+        <div className="warning-banner">
+          VITE_CONTRACT_ADDRESS no está configurado. Desplegá el contrato y actualizá el .env del frontend.
+        </div>
+      )}
+
+      {CONTRACT_ADDRESS && !isSigner && (
         <div className="warning-banner">
           Tu billetera no es un signer de este contrato. Podés ver las propuestas pero no interactuar.
         </div>

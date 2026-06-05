@@ -2,16 +2,20 @@ import { useReadContract } from 'wagmi';
 import { CONTRACT_ADDRESS, MULTISIG_ABI } from '../config/wagmi';
 
 export default function ContractInfo() {
+  const enabled = !!CONTRACT_ADDRESS;
+
   const { data: signersRaw } = useReadContract({
     address: CONTRACT_ADDRESS,
     abi: MULTISIG_ABI,
     functionName: 'getSigners',
+    query: { enabled },
   });
 
   const { data: thresholdRaw } = useReadContract({
     address: CONTRACT_ADDRESS,
     abi: MULTISIG_ABI,
     functionName: 'threshold',
+    query: { enabled },
   });
 
   const signers = signersRaw as readonly `0x${string}`[] | undefined;
