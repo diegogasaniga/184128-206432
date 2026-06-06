@@ -40,7 +40,7 @@ npx hardhat node &
 npx hardhat run scripts/deploy.ts --network localhost
 
 # Sepolia
-cp .env.example .env
+copy .env.example .env
 # editar .env con tus claves
 npx hardhat run scripts/deploy.ts --network sepolia
 ```
@@ -49,7 +49,7 @@ npx hardhat run scripts/deploy.ts --network sepolia
 
 ```bash
 cd frontend
-cp .env.example .env
+copy .env.example .env
 ```
 
 Editar `frontend/.env`:
