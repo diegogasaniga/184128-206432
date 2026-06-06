@@ -34,7 +34,7 @@ export default function CreateJobPage() {
 
     const budgetWei = BigInt(Math.round(parseFloat(budget) * 1e18));
     const expiryTimestamp = BigInt(Math.floor(new Date(expiresAt).getTime() / 1000));
-    const providerAddr = (provider.trim() || ZERO_ADDRESS) as `0x${string}`;
+    const providerAddr = provider.trim() as `0x${string}`;
 
     try {
       const txHash = await writeContractAsync({
@@ -118,13 +118,14 @@ export default function CreateJobPage() {
           </div>
 
           <div className="form-group">
-            <label>Dirección del Proveedor (opcional)</label>
+            <label>Dirección del Proveedor *</label>
             <input
               className="form-input"
               type="text"
+              required
               value={provider}
               onChange={(e) => setProvider(e.target.value)}
-              placeholder="0x... (dejar vacío para asignar después)"
+              placeholder="0x..."
             />
           </div>
 
