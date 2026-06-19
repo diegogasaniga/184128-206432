@@ -63,7 +63,18 @@ VITE_DEPLOY_BLOCK=0                 # block del deploy (importante en Sepolia)
 VITE_PINATA_JWT=...                 # JWT de Pinata para IPFS uploads
 ```
 
+Para obtener el block number de deploy: en [Sepolia Etherscan](https://sepolia.etherscan.io), buscar la dirección del contrato o el hash de la transacción de deploy → campo **Block**. Usar ese número entero como valor. Con `0` el frontend escanea desde el bloque génesis, lo que puede ser muy lento en Sepolia y consumir rate-limits del RPC.
+
+`VITE_DEPLOY_BLOCK` debe actualizarse cuando:
+- **Se redeploya el contrato** — al hacer un nuevo deploy en Sepolia, el número de bloque cambia; dejar el valor anterior haría que el frontend busque eventos donde no existen, o salte jobs creados antes del nuevo bloque.
+- **Se cambia de red o entorno** — en Hardhat local el valor `0` es correcto (cadena corta). Al pasar a Sepolia hay que poner el bloque real del deploy.
+
 Para obtener un JWT de Pinata: https://app.pinata.cloud → API Keys → New Key.
+
+`VITE_PINATA_JWT` debe actualizarse cuando:
+- **Expiró el JWT actual** — Pinata emite JWTs con fecha de expiración; si los uploads fallan con 401, generar uno nuevo en el mismo panel.
+- **Se revocó la API key** — si se borró o deshabilitó la key en Pinata, todas las variables que usen ese JWT dejan de funcionar.
+- **Se quiere usar otra cuenta de Pinata** — por ejemplo, al pasar de un entorno de desarrollo a uno de producción con una cuenta diferente.
 
 ### 3. Iniciar el frontend
 
@@ -112,9 +123,20 @@ El dashboard incorpora los paneles de entregas anteriores:
 **React Router** para navegación entre las tres pantallas (tablero, detalle, crear).
 
 **IPFS para deliverables vía Pinata**
-El proveedor ingresa el texto de su entrega, que se sube a IPFS mediante la API de Pinata. El CID retornado se guarda en `localStorage` como caché local y se muestra al proveedor. El `deliverableRef` almacenado on-chain es `keccak256(cid_string)` — un compromiso criptográfico del CID.
 
-El evaluador ingresa el CID (provisto por el proveedor), que obtiene el contenido desde el gateway de IPFS (`gateway.pinata.cloud`). Cualquier parte puede acceder al contenido desde cualquier gateway IPFS público usando el CID.
+Pinata se usa únicamente cuando el proveedor envía su entrega (transición `Funded → Submitted`). El flujo es:
+
+1. El proveedor escribe el texto del deliverable en el formulario.
+2. El frontend sube el texto como `deliverable.txt` a Pinata vía `POST https://api.pinata.cloud/pinning/pinFileToIPFS` usando el JWT configurado en `VITE_PINATA_JWT`.
+3. Pinata retorna un CID (Content Identifier). El CID se guarda en `localStorage` (clave `ipfs_cid_{jobId}`) para que el proveedor pueda consultarlo en la misma sesión de navegador.
+4. El frontend hashea el CID: `deliverableRef = keccak256(stringToHex(cid))` y llama a `submit(jobId, deliverableRef)` on-chain. El contrato solo almacena ese hash de 32 bytes — nunca el contenido en sí.
+
+Para que el evaluador acceda al contenido:
+- El proveedor le comunica el CID por fuera de la cadena (off-chain).
+- El evaluador ingresa el CID en el panel de acciones. El frontend recupera el texto desde `https://gateway.pinata.cloud/ipfs/{cid}` y lo muestra en pantalla.
+- El evaluador puede verificar el vínculo: `keccak256(cid)` debe coincidir con el `deliverableRef` almacenado on-chain.
+
+El contenido es inmutable y accesible desde cualquier gateway IPFS público usando el CID; no depende de Pinata una vez publicado.
 
 **Approve + Fund en dos transacciones secuenciales**
 Al hacer clic en "Fondear Trabajo", primero se verifica el allowance. Si es insuficiente, se envía `approve` y se espera confirmación antes de enviar `fund`. El usuario ve dos prompts de wallet con etiquetas claras.

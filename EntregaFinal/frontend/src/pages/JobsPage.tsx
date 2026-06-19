@@ -83,7 +83,10 @@ function JobsSection() {
       {isLoading && <p className="loading">Cargando trabajos…</p>}
       {error && (
         <div className="warning-banner">
-          Error al cargar trabajos: {(error as Error).message}
+          {(error as Error).message.includes('10,000') || (error as Error).message.includes('range')
+            ? <>El RPC no permite consultar más de 10 000 bloques a la vez. Actualizá <code>VITE_DEPLOY_BLOCK</code> en el <code>.env</code> con el bloque real del deploy para reducir el rango.</>
+            : <>No se pudieron cargar los trabajos. Verificá tu conexión o intentá de nuevo.</>
+          }
           <button className="btn btn-primary" onClick={() => refetch()} style={{ marginLeft: 12 }}>Reintentar</button>
         </div>
       )}
